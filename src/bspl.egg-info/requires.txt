@@ -1,0 +1,15 @@
+TatSu
+agentspeak
+aiocron
+aiorun
+colorama
+fastcore
+fire
+ijson
+pyyaml
+simplejson
+ttictoc
+uvloop
+
+[testing]
+pytest
