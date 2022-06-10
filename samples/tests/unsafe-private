@@ -1,0 +1,9 @@
+UnsafePrivate {
+  roles A, B, C
+  parameters out id key
+  private data
+
+  A -> B: start[out id]
+  A -> C: race[in id, out data]
+  B -> C: race2[in id, out data]
+}

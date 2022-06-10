@@ -1,0 +1,16 @@
+Grading {
+  roles Prof, Student, TA
+  parameters out sID key, out qID key, out grade
+  private question, solution, answer
+
+  Prof -> Student: BeginTest[out sID key]
+  Prof -> Student: Ask[in sID key, out qID key, out question]
+  Prof -> TA: Rubrick[in sID key, in qID key, out solution]
+  Student -> TA: Solve[in sID key, in qID key, in question, out answer]
+  TA -> Prof: Check[in sID key, in qID key, in answer, in solution, out grade]
+}
+
+// A simple grading protocol.
+// The professor asks a student a question, and gives the corresponding solution to the TA.
+// The student then answers the question, and the TA checks it against the solution to assign a grade.
+// This protocol demonstrates correlation, because the TA must match each answer to the corresponding question.

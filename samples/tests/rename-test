@@ -1,0 +1,15 @@
+Order {
+  roles C, S // Customer, Seller
+  parameters out item key, out done
+
+  C -> S: Buy[out item]
+  S -> C: Deliver[in item, out done]
+}
+
+With-Reject {
+  roles C, S
+  parameters out thing key, out done
+
+  Order(C, S, out thing, out done)
+  S -> C: Reject[in thing, out done]
+}

@@ -1,0 +1,17 @@
+Unify {
+    roles sender, receiver
+    parameters in a key, in b key, in c key, out d
+    sender -> receiver: Unify[in a, in b, in c, out d]
+}
+
+Test {
+    roles A, B, C, D, E, F
+    parameters out d, in start key
+    private a, b, c
+
+    B -> A: transmitData[out a, in start]
+    C -> A: transmitData[out b, in start]
+    D -> A: transmitData[out c, in start]
+
+    Unify(A, F, in a, in b, in c, out d)
+}

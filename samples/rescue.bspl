@@ -1,0 +1,14 @@
+Rescue {
+  roles RCC, OSC, SRU
+  parameters out ID key, out emergency, out done
+  private pattern, rID key, sitrep
+
+  RCC -> OSC: Operation[out ID key, out emergency]
+  OSC -> SRU: Search[in ID key, in emergency, out pattern]
+  SRU -> OSC: Report[in ID key, in pattern, out rID key, out sitrep]
+  OSC -> RCC: Finished[in ID key, out done]
+}
+
+// RCC: Rescue Co-ordination Center
+// OSC: On-scene coordinator
+// SRU: Search and Rescue Unit

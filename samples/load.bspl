@@ -1,0 +1,16 @@
+Load {
+  roles W, L, S, C // Warehouse, Loader, Scanner, Courier
+  parameters out ID key, in order, in tag, out route
+  private type, vehicle, tag, found, loaded, find, package
+
+  W $\mo$ L: Load[in ID key, in order, in tag]
+
+  L $\mo$ C: GetVehicle[in ID key, in order, out type]
+  C $\mo$ L: SendVehicle[in ID key, in type, out vehicle]
+
+  L $\mo$ S: FindPackage[in ID key, in tag, out find]
+  S $\mo$ L: FoundPackage[in ID key, in tag, out package]
+  L $\mo$ C: LoadVehicle[in ID key, in package, in vehicle, out loaded]
+
+  C $\mo$ W: Enroute[in ID key, in vehicle, in package, out route]
+}
