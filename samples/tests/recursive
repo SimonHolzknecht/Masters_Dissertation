@@ -1,0 +1,17 @@
+Ping {
+  roles A, B
+  parameters out id key, out ping
+  private pong
+
+  A -> B: ping[out id, out ping]
+  Pong(A, B, in id, out pong)
+}
+
+Pong {
+  roles A, B
+  parameters in id key, out pong
+  private ping
+
+  B -> A pong[in id key, out pong]
+  Ping(A, B, out id key, out ping)
+}

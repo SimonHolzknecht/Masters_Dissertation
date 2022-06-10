@@ -1,0 +1,17 @@
+Immunization {
+  roles Registrar, Student, Health
+  parameters out ID key, out report
+  private dID, date, reqID, query
+
+  Registrar -> Student: Registration[out ID key]
+  Student -> Health: DoseRecord[in ID key, out dID key, out date]
+  Registrar -> Health: Request[in ID key, out reqID key, out query]
+  Health -> Registrar: Status[in ID key, in dID key, in reqID key, out report]
+}
+
+// Simple immunization status checking protocol; the registrar gives each
+// student an ID, and the students report their immunization doses to the health
+// department. Each semester (say) the Registrar queries the health department
+// about whether the students meet the current requirements; the health department
+// then produces a report for the student, and updates it if the student reports a
+// new dose before the deadline.

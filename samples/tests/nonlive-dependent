@@ -1,0 +1,6 @@
+Dependent {
+  roles A, B
+  parameters in id key, out data
+  
+  A →  B: test[in id, out data]
+}

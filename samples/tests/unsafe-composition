@@ -1,0 +1,15 @@
+Unsafe {
+  roles A, B, C
+  parameters in id key
+  private data
+
+  A -> C: race[in id, out data]
+  B -> C: race2[in id, out data]
+}
+
+Composition {
+  roles A, B, C
+  parameters out id key
+  A -> B: start[out id]
+  Unsafe(A, B, C, id)
+}

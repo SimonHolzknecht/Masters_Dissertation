@@ -1,0 +1,9 @@
+IndirectNonlive {
+  roles A, B
+  parameters out id key, out result
+  private a, b, result
+  
+  A →  B: test[out id, out a, nil b]
+  A →  B: test2[out id, nil a, out b]
+  B →  A: done[in id, in a, in b, out result]
+}

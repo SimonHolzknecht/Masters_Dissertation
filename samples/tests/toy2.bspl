@@ -1,0 +1,10 @@
+Test {
+    roles A, B, C
+    parameters out start key, out result, out done
+    private request, data
+
+    A -> B: requestData[out start key, out request]
+    B -> C: getData[in request key, out data]
+    C -> A: processData[in data key, out result]
+    A -> B: Done[in start key, in result, out done]
+}

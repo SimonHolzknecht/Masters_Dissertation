@@ -1,0 +1,25 @@
+RefinedPurchase {
+  $\msf{roles}$ B, S // Buyer, Seller
+  $\msf{parameters}$ out order key, out payment, out product
+  B $\mapsto$ S: PlaceOrder[out order]
+  RefinedTransfer(B, S, in order, out payment)
+  RefinedCredit(B, S, in order, out payment)
+  S $\mapsto$ B: FillOrder[in order, in payment, out product]
+}
+RefinedTransfer {
+  $\msf{roles}$ B, S
+  $\msf{parameters}$ in order key, out payment
+  private transferOffer, transferAccepted
+  B $\mapsto$ S: OfferTransfer[in order, out transferOffer]
+  S $\mapsto$ B: AcceptTransfer[in order, in transferOffer, out transferAccepted]
+  B $\mapsto$ S: InitiateTransfer[in order, in transferAccepted, out payment]
+}
+RefinedCredit {
+  $\msf{roles}$ B, S
+  $\msf{parameters}$ in order key, out payment
+  private creditOffer, accept
+
+  B $\mapsto$ S: OfferCredit[in order, out creditOffer]
+  S $\mapsto$ B: AcceptCredit[in order, in creditOffer, out accept]
+  B $\mapsto$ S: PayCredit[in order, in accept, out payment]
+}

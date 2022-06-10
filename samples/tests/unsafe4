@@ -1,0 +1,9 @@
+Cancer_diagnosis {
+ $\msf{roles}$ Pat, Phy, Rad
+ $\msf{parameters}$ out pat_id key, out outcome
+
+ Pat $\mapsto$ Phy: Visit [out pat_id]
+ Phy $\mapsto$ Pat: AllGood [in pat_id, out outcome]
+ Phy $\mapsto$ Rad: Consult [in pat_id]
+ Rad $\mapsto$ Phy: CleanChit [in pat_id, out outcome]
+}

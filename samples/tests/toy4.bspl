@@ -1,0 +1,29 @@
+GetApproval {
+    roles requestor, approver
+    parameters in query key, out approved, opt rejected
+    private requested
+
+    requestor -> approver: ask[in query, out requested]
+    approver -> requestor: approve[in requested key, out approved]
+    approver -> requestor: denied[in requested key, out approved, out rejected]
+}
+
+Unify {
+    roles sender, receiver
+    parameters in a key, in b key, in c key, out d
+    sender -> receiver: unify[in a, in b, in c, out d]
+}
+
+Test {
+    roles A, B, C, D, F, G
+    parameters in start key, out done
+    private a, b, c, d
+
+    B -> A: transmitData[out a, in start]
+    C -> A: transmitData[out b, in start]
+    D -> A: transmitData[out c, in start]
+
+    Unify(A, F, in a, in b, in c, out d)
+
+    F -> G: go[in d key, out done]
+}

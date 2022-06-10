@@ -1,0 +1,42 @@
+A {
+    roles roleA, roleB, roleC
+    //can't change location, results in infinite loop
+    parameters in location key, out paramB
+    private privA, requestObstruction, moving
+
+    roleA -> roleB: taskB[in location, out requestObstruction]
+    roleB -> roleA: taskC[in location, in requestObstruction, out privA]
+    roleA -> roleC: taskD[in location, in privA, out moving]
+    roleC -> roleA: taskE[in location, in moving, out paramB]
+}
+
+B {
+    roles roleA, roleB
+    //can't change location, results in non-liveness
+    parameters in start key, in paramA key, in paramB key, in paramC key, out location
+    roleA -> roleB: taskA[in paramA, in paramB, in paramC, out location]
+}
+
+C {
+    roles roleA, roleB, roleC, roleD, roleE, roleF, roleG, roleH, roleI
+    parameters in start key, in paramA key, in paramB key, in paramC key, in paramD key, out paramE
+    //cant change location, results in not being live
+    private location key, privD, privC key, privB, privA
+
+    //current guilt
+    roleA -> roleD: taskF[out paramC, in start]
+    roleB -> roleD: taskF[out paramB, in start]
+    roleC -> roleD: taskF[out paramA, in start]
+
+    B(roleF, roleD, in start, in paramC, in paramB, in paramA, out location)
+
+    roleD -> roleF: taskG[in location, out privC]
+    roleF -> roleD: taskH[in privC, in location, out privD, out privB]
+    roleF -> roleD: taskI[in privC, in location, out paramE, out privB]
+
+    A(roleD, roleG, roleH, in location, out privA)
+    //current guilt
+    A(roleD, roleI, roleI, in location, out paramD)
+
+    roleD -> roleE: taskJ[in privD, in location, in paramD, in privA, out paramE]
+}

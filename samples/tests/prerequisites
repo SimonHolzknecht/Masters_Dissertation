@@ -1,0 +1,8 @@
+DeliverItem {
+  roles S,D,B
+  parameters in item_key key, out delivered_key
+  private parcel
+
+  S -> D: Ship[in item_key, out parcel]
+  D -> B: Deliver[in item_key, in parcel, out delivered_key]
+}
